@@ -63,9 +63,7 @@ def test_eigen_depth(cfg, model):
 
 if __name__ == '__main__':
     import argparse
-    arg_parser = argparse.ArgumentParser(
-        description="TrianFlow testing."
-    )
+    arg_parser = argparse.ArgumentParser(description="Testing.")
     arg_parser.add_argument('--gpu', type=int, default=0, help='gpu id.')
     arg_parser.add_argument('--pretrained_model', type=str, default=None, help='directory for loading flow pretrained models')
     arg_parser.add_argument('--raw_data_dir', type=str, default=None, help='')

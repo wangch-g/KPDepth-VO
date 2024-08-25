@@ -326,9 +326,7 @@ class KPDepthVO():
 
 if __name__ == '__main__':
     import argparse
-    arg_parser = argparse.ArgumentParser(
-        description="TrianFlow training pipeline."
-    )
+    arg_parser = argparse.ArgumentParser(description="VO")
     arg_parser.add_argument('--gpu', type=int, default=0,
                             help='gpu id.')
     arg_parser.add_argument('--mode', type=str, default='keypoint_depth',

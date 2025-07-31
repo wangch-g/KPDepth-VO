@@ -1,5 +1,5 @@
 ## Introduction
-This is the implementation of our ICRA'2024 paper "Self-Supervised Learning of Monocular Visual Odometry and Depth with Uncertainty-Aware Scale Consistency".
+This is the implementation of our ICRA 2024 paper "Self-Supervised Learning of Monocular Visual Odometry and Depth with Uncertainty-Aware Scale Consistency" and the extended version of TCSVT 2025 paper "KPDepth-VO: Self-Supervised Learning of Scale-Consistent Visual Odometry and Depth with Keypoint Features from Monocular Video".
 
 ## Demo
 
@@ -82,6 +82,20 @@ Please use the following citation when referencing our work:
     pages     = {3984--3990},
     publisher = {{IEEE}},
     year      = {2024}
+}
+
+@article{tcsvt/Wang2025,
+    author    = {Changhao Wang and
+                 Guanwen Zhang and
+                 Zhengyun Cheng and
+                 Wei Zhou},
+    title     = {KPDepth-VO: Self-Supervised Learning of Scale-Consistent Visual Odometry and Depth with Keypoint Features from Monocular Video},
+    journal   = {IEEE Transactions on Circuits and Systems for Video Technology},
+    volume    = {35},
+    number    = {6},
+    pages     = {5762-5775},
+    publisher = {{IEEE}},
+    year      = {2025}
 }
 ```
 

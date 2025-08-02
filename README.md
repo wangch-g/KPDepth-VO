@@ -39,7 +39,7 @@ raw_data
 The training code will be released soon.
 
 ## Evaluation
-We provide the pre-trained models <a href="https://pan.baidu.com/s/1mXhECSo9QePgPLAX9OY1dw?pwd=z9pd">here</a> for evaluating on KITTI odometry and KITTI depth respectively.
+We provide the pre-trained models <a href="https://drive.google.com/drive/folders/1G_pfkbyPXAJFmyf8OFLbFbwnTp8do-pW?usp=sharing">here</a> for evaluating on KITTI odometry and KITTI depth respectively ('v1' for conference version and 'full' for journal version).
 ### KITTI odometry
 
 We provide the pose files predicted by the proposed system and the ground truth in "./results/kitti_odom/ours/" and "./results/kitti_odom/gt/" respectively for evaluation, run:
@@ -49,7 +49,7 @@ python ./evaluation/eval_odom.py --gt_txt ./results/kitti_odom/gt/09.txt --pred_
 
 For evaluating the pre-trained model, run:
 ```
-python kpdepth_vo.py --gpu [gpu id] --pretrained_model [/path/to/saved/checkpoints] --traj_save_txt [/where/to/save/your/predicted/poses/seq_id.txt] --sequences_root [/path/to/odometry/dataset/sequences/] --sequence [sequences id]
+python kpdepth_vo.py --gpu [gpu id] --pretrained_model [/path/to/saved/checkpoints] --traj_save_dir [/where/to/save/your/predicted/poses/] --sequences_root [/path/to/odometry/dataset/sequences/] --sequence [sequences id]
 
 python ./evaluation/eval_odom.py --gt_txt [/path/to/odometry/dataset/poses/seq_id.txt] --pred_txt [/path/to/your/predicted/poses/seq_id.txt] --seq [sequences id]
 ```

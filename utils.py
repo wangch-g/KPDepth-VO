@@ -138,8 +138,9 @@ def warp_keypoints(keypoints, H):
     warped_points = np.dot(homogeneous_points, np.transpose(H))
     return warped_points[:, :2] / warped_points[:, 2:]
 
-def prepare_dirs(config):
-    for path in [config.ckpt_dir, config.logs_dir]:
+def prepare_dirs(dirs):
+    for path in dirs:
         if not os.path.exists(path):
             os.makedirs(path)
+
 

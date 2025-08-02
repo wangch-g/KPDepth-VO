@@ -256,3 +256,70 @@ class CorrespondenceModule(nn.Module):
             raise NotImplementedError()
         
         return confidence_matrix
+    
+    
+class DifferenceAttentionModule(nn.Module):
+    def __init__(self, dim, num_heads):
+        super(DifferenceAttentionModule, self).__init__()
+        """
+        Args:
+            score (tensor, [B, 1, N]):
+            coord (tensor, [B, 2, N]):
+            desc  (tensor, [B, C, N]):
+        
+        Returns:
+            
+        """
+        self.num_heads = num_heads
+
+        self.kp_mlp = nn.Sequential(
+            nn.Conv1d(2, dim, kernel_size=1),
+            nn.BatchNorm1d(dim),
+            nn.GELU()
+        )
+
+        self.norm_qk = LayerNorm(dim, LayerNorm_type='WithBias')
+        self.norm_v = LayerNorm(dim, LayerNorm_type='WithBias')
+
+        self.qk = nn.Conv1d(dim, dim*2, kernel_size=1)
+        self.v = nn.Conv1d(dim, dim, kernel_size=1)
+
+        self.proj = nn.Conv1d(dim, dim, kernel_size=1)
+
+        self.norm = LayerNorm(dim, LayerNorm_type='WithBias')
+        self.mlp = nn.Sequential(
+            nn.Conv1d(dim, dim, kernel_size=1),
+            nn.BatchNorm1d(dim),
+            nn.GELU(),
+            nn.Conv1d(dim, dim, kernel_size=1),
+            nn.BatchNorm1d(dim),
+            nn.GELU()
+        )
+
+        self.out_proj = nn.Conv1d(dim, 1, kernel_size=1)
+
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, coord, desc):
+        kp_emd = self.kp_mlp(coord) # [B, 3, N] -> [B, C, N]
+
+        qk = self.qk(self.norm_qk(desc)) # [B, C, N]
+        v = self.v(self.norm_v(kp_emd)) # [B, C, N]
+
+        q, k = qk.chunk(2, dim=1)
+        q = rearrange(q, 'b (head c) n -> b head c n', head=self.num_heads)
+        k = rearrange(k, 'b (head c) n -> b head c n', head=self.num_heads)
+        v = rearrange(v, 'b (head c) n -> b head c n', head=self.num_heads)
+
+        attn = torch.einsum('bhcn, bhcm -> bhnm', q, k) / q.shape[2] ** .5
+        attn = attn.softmax(dim=-1)
+
+        mssg = torch.einsum('bhnm, bhcm -> bhcn', attn, v)
+        mssg = rearrange(mssg, 'b head c n -> b (head c) n', head=self.num_heads)
+        mssg = self.proj(mssg)
+        diff = torch.abs(kp_emd - mssg)
+
+        out = self.mlp(self.norm(diff))
+        out = self.sigmoid(self.out_proj(out)).squeeze(1)
+
+        return out

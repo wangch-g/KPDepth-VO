@@ -39,7 +39,7 @@ raw_data
 The training code will be released soon.
 
 ## Evaluation
-We provide the pre-trained models <a href="https://drive.google.com/drive/folders/1G_pfkbyPXAJFmyf8OFLbFbwnTp8do-pW?usp=sharing">here</a> for evaluating on KITTI odometry and KITTI depth respectively ('v1' for conference version and 'full' for journal version).
+We provide the pre-trained models on <a href="https://drive.google.com/drive/folders/1G_pfkbyPXAJFmyf8OFLbFbwnTp8do-pW?usp=sharing">Google drive</a>/<a href="https://pan.baidu.com/s/1a3gkLwXVcjHqAu6Mbp1faA?pwd=2m1y">Baidu drive</a> for evaluating on KITTI odometry and KITTI depth respectively ('v1' for conference version and 'full' for journal version).
 ### KITTI odometry
 
 We provide the pose files predicted by the proposed system and the ground truth in "./results/kitti_odom/ours/" and "./results/kitti_odom/gt/" respectively for evaluation, run:
